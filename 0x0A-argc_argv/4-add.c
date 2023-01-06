@@ -1,41 +1,35 @@
 #include <stdio.h>
-#include <ctype.h>
 #include <stdlib.h>
-#include <string.h>
+
 /**
- * checker - checks for valid input
+ * main - add 2 positive numbers and print the result
  * @argc: argument count
- * @i: counter for argv[]
- * @j: counter for argv[][]
- * @argv: argument vector
- * Return: 0 on success, 1 on failure
- */
-int checker(int argc, int i, unsigned int j, char *argv[])
-{
-	for (i = 1; i <= argc; i++)
-		for (j = 0; argv[i] != '\0' && j < strlen(argv[i]); j++)
-			if (isdigit(argv[i][j]) == 0)
-				return (1);
-	return (0);
-}
-/**
- * main - adds all arguments together if they are digits.
- * @argc: argument count only accepts ints separated by spaces.
- * @argv: argument vector
- * Return: 0 on success, 1 on failure
+ * @argv: argument vector, array of strings
+ * Description: If no number is passed to program, print 0.
+ * If one of the numbers contain non-digits, print Error.
+ * Return: 1 if error, 0 if function runs properly.
  */
 int main(int argc, char *argv[])
 {
-	int result, i;
+	int total, i;
+	char *p;
+	int num;
 
-	result = 0;
-	if (checker(argc, 1, 0, argv) == 1)
+	total = 0;
+	if (argc > 1)
 	{
-		printf("Error\n");
-		return (1);
+		for (i = 1; argv[i]; i++)
+		{
+			num = strtol(argv[i], &p, 10);
+			if (!*p)
+				total += num;
+			else
+			{
+				printf("Error\n");
+				return (1);
+			}
+		}
 	}
-	for (i = 1; i < argc; i++)
-		result += atoi(argv[i]);
-	printf("%d\n", result);
+	printf("%d\n", total);
 	return (0);
 }
