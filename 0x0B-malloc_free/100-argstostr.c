@@ -1,22 +1,37 @@
-#include "main.h"
-#include <stdio.h>
 #include <stdlib.h>
-
+#include "main.h"
 /**
- * main - check the code for ALX School students.
- *
- * Return: Always 0.
+ * argstostr - concatenates all arguments of program.
+ * @ac: argument count
+ * @av: pointer to argument vectors
+ * Return: pointer to new buffer with all arguments as 1 string.
  */
-int main(int ac, char *av[])
+char *argstostr(int ac, char **av)
 {
-    char *s;
+	int i, j, len, bufferlen;
+	char *p;
 
-    s = argstostr(ac, av);
-    if (s == NULL)
-    {
-        return (1);
-    }
-    printf("%s", s);
-    free(s);
-    return (0);
+	if (ac == 0)
+		return (NULL);
+	if (av == NULL)
+		return (NULL);
+
+	i = j = len = bufferlen = 0;
+	for (i = 0; av[i]; i++)
+	{
+		for (j = 0; av[i][j]; j++)
+			len++;
+	}
+	p = (char *)malloc(len * sizeof(char) + ac + 1);
+	if (p == NULL)
+		return (NULL);
+	for (i = 0; av[i]; i++)
+	{
+		for (j = 0; av[i][j]; j++, bufferlen++)
+			p[bufferlen] = av[i][j];
+		p[bufferlen] = '\n';
+		bufferlen++;
+	}
+	p[bufferlen] = '\0';
+	return (p);
 }
