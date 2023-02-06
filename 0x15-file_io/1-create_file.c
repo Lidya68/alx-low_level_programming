@@ -1,8 +1,8 @@
-#include "main.h"
+/*
+ * File: 1-create_file.c
+ * Auth: Brennan D Baraban
+ */
 
-/**
- * create_file - Creates a file.
- * @filename: A pointer to the name of the file to create.
 #include "main.h"
 
 /**
@@ -22,7 +22,7 @@ int create_file(const char *filename, char *text_content)
 
 	if (text_content != NULL)
 	{
-		while (text_content[len])
+		for (len = 0; text_content[len];)
 			len++;
 	}
 
